@@ -114,6 +114,14 @@ case "$2" in
         CMD=push
         CHART=$2
 
+        # read early stored USERNAME and PASSWORD from REPO_AUTH_FILE (login command)
+        if [[ -f "$REPO_AUTH_FILE" ]]; then
+            REPO_CREDENTIALS=$(cat $REPO_AUTH_FILE)
+            USERNAME=$(echo ${REPO_CREDENTIALS} | cut -d':' -f1)
+            PASSWORD=$(echo ${REPO_CREDENTIALS} | cut -d':' -f2)
+            #AUTH="$USERNAME:$PASSWORD"
+        fi
+
         if [[ -z "$USERNAME" ]] || [[ -z "$PASSWORD" ]]; then
             if [[ -f "$REPO_AUTH_FILE" ]]; then
                 echo "Using cached login creds..."
@@ -139,8 +147,15 @@ case "$2" in
         fi
 
         echo "Pushing $CHART to repo $REPO_URL..."
-        curl -is -u "$AUTH" "$REPO_URL" --upload-file "$CHART_PACKAGE" | indent
-        echo "Done"
+
+        HTTP_STATUS_CODE=$(curl -is -u "$AUTH" -w "%{http_code}" "$REPO_URL" --upload-file "$CHART_PACKAGE" | indent)
+        if [ $HTTP_STATUS_CODE != "200" ]; then
+            echo "Cannot upload chart to registry. HTTP status: ${HTTP_STATUS_CODE}"
+            echo "Error"
+            exit 1
+        else
+            echo "Chart $CHART was successfully uploaded to repositry $REPO_URL."
+            echo "Done"
         ;;
 esac
 
