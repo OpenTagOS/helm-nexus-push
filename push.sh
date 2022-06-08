@@ -147,14 +147,13 @@ case "$2" in
         fi
 
         echo "Pushing $CHART to repo $REPO_URL..."
-
         HTTP_STATUS_CODE=$(curl -is -u "$AUTH" -w "%{http_code}" "$REPO_URL" --upload-file "$CHART_PACKAGE" | indent)
         if [ $HTTP_STATUS_CODE != "200" ]; then
-            echo "Cannot upload chart to registry. HTTP status: ${HTTP_STATUS_CODE}"
+            echo "Cannot upload chart $CHART to helm registry. HTTP status: ${HTTP_STATUS_CODE}"
             echo "Error"
             exit 1
         else
-            echo "Chart $CHART was successfully uploaded to repositry $REPO_URL."
+            echo "Chart $CHART was successfully uploaded to helm registry $REPO_URL."
         echo "Done"
         ;;
 esac
