@@ -155,7 +155,7 @@ case "$2" in
             exit 1
         else
             echo "Chart $CHART was successfully uploaded to repositry $REPO_URL."
-            echo "Done"
+        echo "Done"
         ;;
 esac
 
