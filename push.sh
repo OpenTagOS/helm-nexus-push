@@ -72,8 +72,8 @@ declare REPO=$1
 declare REPO_URL="$(helm repo list | grep "^$REPO" | awk '{print $2}')/"
 
 if [[ -n $HELM3_VERSION ]]; then
-    HELM_HOME="$HOME/.helm"
-    export HELM_HOME=$HELM_HOME
+    export HELM_HOME="$HOME/.helm"
+    mkdir -p $HELM_HOME
     declare REPO_AUTH_FILE="$HELM_HOME/auth.$REPO"
     echo "Detected HELM version: 3"
 else
