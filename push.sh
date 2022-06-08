@@ -75,10 +75,10 @@ if [[ -n $HELM3_VERSION ]]; then
     export HELM_HOME="$HOME/.helm"
     mkdir -p $HELM_HOME
     declare REPO_AUTH_FILE="$HELM_HOME/auth.$REPO"
-    echo "Detected HELM version: 3"
+    #echo "Detected HELM version: 3"
 else
     declare REPO_AUTH_FILE="$(helm home)/repository/auth.$REPO"
-    echo "Detected HELM version: 2"
+    #echo "Detected HELM version: 2"
 fi
 
 if [[ -z "$REPO_URL" ]]; then
