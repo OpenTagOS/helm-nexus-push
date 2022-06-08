@@ -16,7 +16,7 @@
 
 -->
 
-# Fork https://github.com/sonatype-nexus-community/helm-nexus-push
+# Fork of https://github.com/sonatype-nexus-community/helm-nexus-push
 
 # Helm Nexus Repository Push
 
@@ -49,7 +49,6 @@ Remember:
 
 * Use this contribution at the risk tolerance that you have
 * Do NOT file Sonatype support tickets related to Helm support in regard to this plugin
-* DO file issues here on GitHub, so that the community can pitch in
 
 Phew, that was easier than I thought. Last but not least of all:
 
